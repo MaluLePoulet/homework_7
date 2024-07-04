@@ -1,6 +1,6 @@
 import Animals.*;
 import Menu.UserAction;
-import java.util.Random;
+
 import java.util.Scanner;
 
 public class MainAnimals {
@@ -36,24 +36,6 @@ public class MainAnimals {
 
         scanner.close();
         scanner1.close();
-    }
-
-    private static Animal getNextAnimal() {
-        Random random = new Random();
-        int randomValue = random.nextInt(6);
-        if (randomValue == 0) {
-            return new Cat();
-        } else if (randomValue == 1) {
-            return new Lion();
-        } else if (randomValue == 2) {
-            return new Fish();
-        } else if (randomValue == 3) {
-            return new Whale();
-        } else if (randomValue == 4) {
-            return new Raven();
-        } else {
-            return new Stork();
-        }
     }
 
     private static String processArray(Animal[] animals, UserAction userAction) {
@@ -146,5 +128,24 @@ public class MainAnimals {
                 }
         }
         return "Goodbye!";
+    }
+
+    private static Animal getNextAnimal() {
+        AnimalTypes randomAnimalType = AnimalTypes.getRandomAnimalTypes();
+        switch (randomAnimalType) {
+            case CAT:
+                return new Cat();
+            case LION:
+                return new Lion();
+            case FISH:
+                return new Fish();
+            case WHALE:
+                return new Whale();
+            case RAVEN:
+                return new Raven();
+            case STORK:
+                return new Stork();
+        }
+        return null;
     }
 }
