@@ -18,8 +18,6 @@ public abstract class Animal {
         return id;
     }
 
-    public Animal() {}
-
     public Animal(String name) {
         this.id = nextId++;
         this.name = name;

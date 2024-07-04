@@ -2,9 +2,6 @@ package Animals;
 
 public class Raven extends Bird {
 
-    public Raven() {
-    }
-
     public Raven(String name) {
         super(name);
     }

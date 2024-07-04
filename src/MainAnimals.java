@@ -134,17 +134,17 @@ public class MainAnimals {
         AnimalTypes randomAnimalType = AnimalTypes.getRandomAnimalTypes();
         switch (randomAnimalType) {
             case CAT:
-                return new Cat();
+                return new Cat("Bublik");
             case LION:
-                return new Lion();
+                return new Lion("Simba");
             case FISH:
-                return new Fish();
+                return new Fish("Dori");
             case WHALE:
-                return new Whale();
+                return new Whale("White");
             case RAVEN:
-                return new Raven();
+                return new Raven("Edgar");
             case STORK:
-                return new Stork();
+                return new Stork("Pop");
         }
         return null;
     }

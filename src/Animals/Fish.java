@@ -2,9 +2,6 @@ package Animals;
 
 public class Fish extends Animal implements SwimmingAnimals {
 
-    public Fish() {
-    }
-
     public Fish(String name) {
         super(name);
     }

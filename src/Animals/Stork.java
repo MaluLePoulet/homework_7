@@ -2,9 +2,6 @@ package Animals;
 
 public class Stork extends Bird {
 
-    public Stork() {
-    }
-
     public Stork(String name) {
         super(name);
     }
