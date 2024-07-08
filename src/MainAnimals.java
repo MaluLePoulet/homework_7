@@ -1,41 +1,60 @@
 import Animals.*;
 import Menu.UserAction;
+import exceptions.InvalidArraySizeException;
+import exceptions.InvalidUserChoiceException;
 
 import java.util.Scanner;
 
 public class MainAnimals {
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the number of animals: ");
+        Animal[] animals = null;
 
-        Animal[] animals = new Animal[scanner.nextInt()];
-        for (int i = 0; i < animals.length; i++) {
-            animals[i] = getNextAnimal();
-            System.out.println(animals[i].getClass().getSimpleName());
+        while (animals == null) {
+            try {
+                System.out.println("Enter the number of animals: ");
+                int size = scanner.nextInt();
+                if (size <= 0) {
+                    throw new InvalidArraySizeException("Array size must be positive.");
+                }
+                animals = new Animal[size];
+                for (int i = 0; i < animals.length; i++) {
+                    animals[i] = getNextAnimal();
+                    System.out.println(animals[i].getClass().getSimpleName());
+                }
+            } catch (InvalidArraySizeException e) {
+                System.out.println(e.getMessage());
+                scanner.next();
+            }
         }
 
         var actions = UserAction.values();
-        Scanner scanner1 = new Scanner(System.in);
-        System.out.println("Select a point with action you would like animals to do: ");
-
-        for (int i = 0; i < actions.length; i++) {
-            System.out.println(actions[i].getCode() + " to " + actions[i].getDescription());
+        UserAction userAction = null;
+        while (userAction == null) {
+            try {
+                System.out.println("Select an action for the animals: ");
+                for (int i = 0; i < actions.length; i++) {
+                    System.out.println(actions[i].getCode() + " to " + actions[i].getDescription());
+                }
+                int userChoice = scanner.nextInt();
+                userAction = UserAction.valueOf(userChoice);
+                if (userAction == null) {
+                    throw new InvalidUserChoiceException("Invalid choice. Please try again.");
+                }
+            } catch (InvalidUserChoiceException e) {
+                System.out.println(e.getMessage());
+                scanner.next();
+            }
         }
-        int userChoice = scanner1.nextInt();
-        UserAction userAction = UserAction.valueOf(userChoice);
-        if (userAction == null) {
-            System.out.println("Choice is incorrect. Try again!");
-        } else if (userAction == UserAction.EXIT) {
 
+        if (userAction == UserAction.EXIT) {
             System.out.println("Good bye!");
+        } else {
+            String userActionResult = processArray(animals, userAction);
+            System.out.println(userActionResult);
         }
-
-        String userActionResult = processArray(animals, userAction);
-        System.out.println(userActionResult);
 
         scanner.close();
-        scanner1.close();
     }
 
     private static String processArray(Animal[] animals, UserAction userAction) {
